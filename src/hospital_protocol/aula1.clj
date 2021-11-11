@@ -51,3 +51,30 @@
 (pprint (= (->Paciente 15 "David Borelli" "27/09/1989") (->Paciente 15 "David Borelli" "27/09/1989")))
 (pprint (= (->Paciente 152 "David Borelli" "27/09/1989") (->Paciente 15 "David Borelli" "27/09/1989")))
 
+
+
+
+
+
+
+
+(defprotocol Dateable
+  (to-ms [this]))
+
+(extend-type java.lang.Number
+  Dateable
+  (to-ms [this] this))
+
+(pprint (to-ms 56))
+
+(extend-type java.util.Date
+  Dateable
+  (to-ms [this] (.getTime this)))
+
+(pprint (to-ms (java.util.Date.)))
+
+(extend-type java.util.Calendar
+  Dateable
+  (to-ms [this] (to-ms (.getTime this))))
+
+(pprint (to-ms (java.util.GregorianCalendar.)))
